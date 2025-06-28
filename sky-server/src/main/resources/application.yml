@@ -35,6 +35,9 @@ logging:
         service: info
         controller: info
 
+pay:
+    mock: true
+
 sky:
   jwt:
     # 设置jwt签名加密时使用的秘钥
@@ -53,6 +56,8 @@ sky:
     access-key-secret: ${sky.alioss.access-key-secret}
     bucket-name: ${sky.alioss.bucket-name}
 
+
+
   wechat:
     appid: ${sky.wecaht.appid}
     secret: ${sky.wechat.secret}
@@ -63,8 +68,8 @@ sky:
     weChatPayCertFilePath: ${sky.wechat.weChatPayCertFilePath}
     notifyUrl: ${sky.wechat.notifyUrl}
     refundNotifyUrl: ${sky.wechat.refundNotifyUrl}
-
   shop:
     address: 吉林省吉林市昌邑区沿江街道18号
+
   baidu:
     ak: zFa4GBOzyyoYSu9ePlMjle1eNAezdrtP

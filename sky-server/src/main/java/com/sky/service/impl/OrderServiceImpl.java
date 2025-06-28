@@ -32,10 +32,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -202,10 +199,32 @@ public class OrderServiceImpl implements OrderService {
      * @param ordersPaymentDTO
      * @return
      */
+
+    @Value("${pay.mock:false}")
+    private boolean mockPay;
+
     public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
         // 当前登录用户id
         Long userId = BaseContext.getCurrentId();
         User user = userMapper.getById(userId);
+
+        //测试
+        String orderNumber = ordersPaymentDTO.getOrderNumber();
+
+        // -------- 模拟支付逻辑 ----------
+        if (mockPay) {
+            log.info("模拟支付模式开启，直接调用支付成功逻辑");
+            this.paySuccess(orderNumber);
+            // 返回一个假的 OrderPaymentVO（前端可能不需要这个）
+            OrderPaymentVO vo = new OrderPaymentVO();
+            vo.setPackageStr("mock_package");
+            vo.setTimeStamp(String.valueOf(System.currentTimeMillis() / 1000));
+            vo.setNonceStr(UUID.randomUUID().toString().replaceAll("-", "").substring(0, 16));
+            vo.setPaySign("mock_sign");
+            vo.setSignType("MD5");
+            return vo;
+        }
+
 
         //调用微信支付接口，生成预支付交易单
         JSONObject jsonObject = weChatPayUtil.pay(
