@@ -55,13 +55,13 @@ public class SetmealServiceImpl implements SetmealService {
         //获取主键值
         Long setmealId = setmeal.getId();
 
-        List<SetmealDish> setmealDishs = setmealDTO.getSetmealDishes();
-        setmealDishs.forEach(setmealDish -> {
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        setmealDishes.forEach(setmealDish -> {
             setmealDish.setSetmealId(setmealId);
         });
 
         //保存套餐和菜品的关系
-        setmealDishMapper.insertBatch(setmealDishs);
+        setmealDishMapper.insertBatch(setmealDishes);
     }
 
     /**

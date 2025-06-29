@@ -21,7 +21,7 @@ public interface SetmealDishMapper {
      * 批量保存套餐和菜品的关联关系
      * @param setmealDishes
      */
-    void insertBatch(List<SetmealDish> setmealDishs);
+    void insertBatch(List<SetmealDish> setmealDishes);
 
     /**
      * 根据套餐id删除套餐和菜品的关联关系
